@@ -14,17 +14,17 @@ describe Infobar do
 
   it 'can be used to signal being busy with a block' do
     expect { Infobar.busy }.to raise_error ArgumentError
-    #x expect(infobar.display).to receive(:update).at_least(1).and_call_original
-    #x Infobar.busy { sleep 0.2 }
+    expect(infobar.display).to receive(:update).at_least(1).and_call_original
+    Infobar.busy { sleep 0.2 }
   end
 
-  xit 'can be called and update instantly' do
+  it 'can be called and update instantly' do
     expect(infobar).to receive(:update).with(message: anything, force: true).
       and_call_original
     Infobar(total: 10, update: true)
   end
 
-  xit 'can update display with force' do
+  it 'can update display with force' do
     Infobar(total: 10)
     expect(infobar.display).to receive(:update).
       with(

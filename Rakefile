@@ -6,7 +6,7 @@ GemHadar do
   name        'infobar'
   author      'Florian Frank'
   email       'flori@ping.de'
-  homepage    "http://flori.github.com/#{name}"
+  homepage    "http://github.com/#{name}"
   summary     'Gem to display information about computations.'
   description 'This gem displays progress of computations and additional information to the terminal.'
   module_type :class

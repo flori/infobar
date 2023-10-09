@@ -95,6 +95,7 @@ class Infobar
   def busy(**opts, &block)
     block_given? or raise ArgumentError, 'block is required as an argument'
     duration = opts.delete(:sleep) || 0.1
+    reset
     call(**opts | {
       total: Float::INFINITY,
       message: { format: ' %l %te %s ', '%s' => { frames: :circle1 } },
