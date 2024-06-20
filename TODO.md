@@ -1,5 +1,6 @@
 # TODO
 
+- add a spinner simulator
 - add color gradients?
 - cumulative counters to summarize several progress bars
 - categorize do progress and display accordingly
