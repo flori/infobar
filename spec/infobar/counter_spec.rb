@@ -19,6 +19,17 @@ describe Infobar::Counter do
     expect(counter.total).to eq 0
   end
 
+  it 'can be represented as string' do
+    expect(counter.progress(as: true)).to eq counter
+    expect(counter.progress(as: false)).to eq counter
+    expect(counter.progress(as: true)).to eq counter
+    expect(counter.to_s).to eq <<~end.chomp
+      default: 0
+      true: 2
+      false: 1
+    end
+  end
+
   it 'can progress by arbitrary value' do
     expect(counter.progress(by: 23)).to eq counter
     expect(counter).to be_started
