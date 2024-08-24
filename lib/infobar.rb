@@ -98,7 +98,7 @@ class Infobar
     reset
     call(**opts | {
       total: Float::INFINITY,
-      message: { format: ' %l %te %s ', '%s' => { frames: } },
+      message: { format: ' %l %te %s ', '%s' => { frames: frames } },
     })
     ib = Thread.new {
       loop do
