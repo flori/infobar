@@ -92,13 +92,13 @@ class Infobar
     instance.busy(**opts, &block)
   end
 
-  def busy(**opts, &block)
+  def busy(frames: :circle1, **opts, &block)
     block_given? or raise ArgumentError, 'block is required as an argument'
     duration = opts.delete(:sleep) || 0.1
     reset
     call(**opts | {
       total: Float::INFINITY,
-      message: { format: ' %l %te %s ', '%s' => { frames: :circle1 } },
+      message: { format: ' %l %te %s ', '%s' => { frames: } },
     })
     ib = Thread.new {
       loop do
