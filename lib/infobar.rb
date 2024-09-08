@@ -77,7 +77,9 @@ class Infobar
     self.label = label
     counter.reset(total: total, current: current)
     display.reset clear: false
-    @message = convert_to_message(message)
+    @message = convert_to_message(
+      message.full? || '%l %c/%t in %te, ETA %e @%E %s'
+    )
     show.nil? or self.show = show
     frequency.nil? or display.frequency = frequency
     style.nil? or self.style = style
