@@ -6,7 +6,7 @@ script: &script |-
   ruby -v
   echo -e "\e[0m"
   gem install bundler
-  bundle install
+  bundle install --full-index
   bundle exec rake spec
 
 fail_fast: true
