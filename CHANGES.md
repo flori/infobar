@@ -1,5 +1,21 @@
 # Changes
 
+## 2024-09-08 v0.8.1
+
+* **Dependency Updates**:
+	+ Update `all_images` Dockerfile and Gem installation
+		- Removed gem update and `gem_hadar/bundler` installation from Dockerfile
+		- Replaced RUN commands with bundle install and rake spec using bundler
+	+ Upgrade `gem_hadar`
+* **Refactor Infobar message formatting**
+	+ Update `@message` assignment to use a conditional format string
+* **Miscellaneous**:
+	+ Bump version and dependencies
+		- Update `.all_images.yml` to use `bundle install --full-index`
+		- Remove `.byebug_history` from `.gitignore`
+		- Remove `gem 'byebug', platform: :mri'` from `Gemfile`
+		- Bump version in `VERSION`, `infobar.gemspec`, and `lib/infobar/version.rb`
+
 ## 2024-09-01 v0.8.0
 
 * **New Version:** 0.8.0
