@@ -59,11 +59,11 @@ describe Infobar::Display do
 
   it 'styles are different as kinds differ' do
     counter = Infobar::Counter.new.reset(total: 7, current: 5)
-    allow(counter).to receive(:as).and_return(
+    expect(counter).to receive(:as).and_return(
       foo: 3,
       bar: 2
     )
-    allow(display).to receive(:as_styles).and_return(
+    expect(display).to receive(:as_styles).and_return(
       {
         foo: {
           done_fill:     ?X,
@@ -76,7 +76,7 @@ describe Infobar::Display do
           done_bg_color: 10,
         }
       }
-    )
+    ).at_least(:once)
     display.update message: 'test', counter: counter
     expect(output.tap(&:rewind).read).to eq\
       "\r\e[38;5;1m\e[48;5;9mXXXXXXXXXXXXXXXXX\e[0m\e[0m\e[38;5;0m\e[48;5;10m*test******\e[0m\e[0m\e[38;5;40m\e[48;5;22m            \e[0m\e[0m"
