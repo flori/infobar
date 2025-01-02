@@ -6,6 +6,7 @@ class Infobar::Spinner
     bar2:      %w[ █ ▉ ▊ ▋ ▌ ▍ ▎ ▏ ▎ ▍ ▌ ▋ ▊ ▉ ],
     braille7:  %w[ ⣾ ⣽ ⣻ ⢿ ⡿ ⣟ ⣯ ⣷ ],
     braille1:  %w[ ⠁ ⠂ ⠄ ⡀ ⢀ ⠠ ⠐ ⠈ ],
+    braille18: %w[ ⡀ ⡄ ⡆ ⡇ ⣇ ⣧ ⣷ ⣿ ],
     square1:   %w[ ▖ ▘ ▝ ▗ ],
     square2:   %w[ ◰ ◳ ◲ ◱ ],
     tetris:    %w[ ▌ ▀ ▐▄ ],
