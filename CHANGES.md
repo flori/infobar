@@ -1,5 +1,13 @@
 # Changes
 
+## 2025-01-10 v0.9.0
+
+* Removed outdated changelogs for versions prior to **0.6.1** from README.md.
+* Added `braille18` animation to `Infobar::Spinner` class.
+* Added `braille181` character set to `PREDEFINED` in Infobar Spinner.
+* Added Ruby 3.4-alpine to supported versions in `.all_images.yml` file.
+* Replaced `allow` with `expect` in tests.
+
 ## 2024-09-08 v0.8.1
 
 * **Dependency Updates**:
