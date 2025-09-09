@@ -1,12 +1,8 @@
-if ENV['START_SIMPLECOV'].to_i == 1
-  require 'simplecov'
-  SimpleCov.start do
-    add_filter "#{File.basename(File.dirname(__FILE__))}/"
-  end
-end
+require 'gem_hadar/simplecov'
+GemHadar::SimpleCov.start
 require 'rspec'
 begin
-  require 'byebug'
+  require 'debug'
 rescue LoadError
 end
 require 'infobar'
