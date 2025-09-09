@@ -2,7 +2,6 @@
 
 ## 2025-09-09 v0.10.0
 
-### Changed
 - Updated `gem_hadar` development dependency from `~> 2.2` to `~> 2.3`
 - Removed `.travis.yml` from gem package and updated file inclusion logic
 - Added `.utilsrc`, `.all_images.yml`, `VERSION`, `.rspec`, `.gitignore`, and
