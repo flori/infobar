@@ -13,6 +13,9 @@ GemHadar do
   test_dir    'spec'
   ignore      '.*.sw[pon]', 'pkg', 'Gemfile.lock', 'coverage', '.rvmrc',
     '.AppleDouble', 'tags', '.DS_Store', 'errors.lst', '.tool-versions'
+  package_ignore '.utilsrc', '.all_images.yml', 'VERSION', '.rspec',
+    '.gitignore', 'TODO.md'
+
   readme      'README.md'
   title       "#{name.camelize}"
 
