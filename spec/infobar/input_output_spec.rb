@@ -41,12 +41,10 @@ describe Infobar::InputOutput do
   end
 
   it 'does not puts if not showing' do
-    begin
-      expect(infobar.display.output).not_to receive(:puts)
-      infobar.show = false
-      infobar.puts 'hello'
-    rescue
-      infobar.show = true
-    end
+    expect(infobar.display.output).not_to receive(:puts)
+    infobar.show = false
+    infobar.puts 'hello'
+  ensure
+    infobar.show = true
   end
 end

@@ -28,6 +28,17 @@ describe Infobar do
     Infobar(total: 10, update: true)
   end
 
+  it 'has display for Infobar' do
+    expect(Infobar.display).to be_a Infobar::Display
+  end
+
+  it 'can convert message hashes into messages' do
+    message_hash = { foo: 'bar' }
+    message = Infobar.convert_to_message(message_hash)
+    expect(message).to be_a Infobar::Message
+    expect(message.opts).to eq('foo' => 'bar')
+  end
+
   it 'can update display with force' do
     Infobar(total: 10)
     expect(infobar.display).to receive(:update).
