@@ -1,5 +1,13 @@
 # Changes
 
+## 2025-09-11 v0.11.0
+
+- Added `.bundle` to `.gitignore` file
+- Updated `tins` dependency from version **1.0** to **1**
+- Updated `term-ansicolor` dependency from version **1.4** to **1.11**
+- Updated `complex_config` dependency from version **0.10** to **0.22**
+- Updated `gem_hadar` development dependency from version **2.3** to **2.4**
+
 ## 2025-09-09 v0.10.0
 
 - Updated `gem_hadar` development dependency from `~> 2.2` to `~> 2.3`

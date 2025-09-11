@@ -12,7 +12,8 @@ GemHadar do
   module_type :class
   test_dir    'spec'
   ignore      '.*.sw[pon]', 'pkg', 'Gemfile.lock', 'coverage', '.rvmrc',
-    '.AppleDouble', 'tags', '.DS_Store', 'errors.lst', '.tool-versions'
+    '.AppleDouble', 'tags', '.DS_Store', 'errors.lst', '.tool-versions',
+    '.bundle'
   package_ignore '.utilsrc', '.all_images.yml', 'VERSION', '.rspec',
     '.gitignore', 'TODO.md'
 
