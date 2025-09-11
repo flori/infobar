@@ -20,9 +20,9 @@ GemHadar do
   title       "#{name.camelize}"
 
   required_ruby_version '>= 2.3'
-  dependency 'tins',           '~> 1.0', '>= 1.28.0'
-  dependency 'term-ansicolor', '~> 1.4'
-  dependency 'complex_config', '~> 0.10'
+  dependency 'tins',           '~> 1', '>= 1.28.0'
+  dependency 'term-ansicolor', '~> 1.11'
+  dependency 'complex_config', '~> 0.22'
   dependency 'more_math'
   development_dependency 'rake'
   development_dependency 'simplecov'
