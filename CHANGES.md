@@ -1,5 +1,19 @@
 # Changes
 
+## 2025-12-21 v0.12.0
+
+- Updated minimum Ruby version requirement to **3.1**
+- Updated `rubygems` version from **3.6.9** to **4.0.2**
+- Updated `gem_hadar` development dependency from version **2.4** to **2.11**
+- Added `openssl-dev` package to the Alpine build dependencies for Ruby **4.0**
+  image
+- Updated `bundle update` command to `bundle update --all` for comprehensive
+  dependency updates
+- Changed `rake spec` to `bundle exec rake spec` to ensure proper execution
+  within the bundle context
+- Added Ruby **4.0-rc-alpine** image to the CI test matrix for broader
+  compatibility testing
+
 ## 2025-09-11 v0.11.0
 
 - Added `.bundle` to `.gitignore` file
