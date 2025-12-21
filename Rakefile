@@ -20,7 +20,7 @@ GemHadar do
   readme      'README.md'
   title       "#{name.camelize}"
 
-  required_ruby_version '>= 2.3'
+  required_ruby_version '>= 3.1'
   dependency 'tins',           '~> 1', '>= 1.28.0'
   dependency 'term-ansicolor', '~> 1.11'
   dependency 'complex_config', '~> 0.22'
