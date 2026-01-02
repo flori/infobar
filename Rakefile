@@ -20,6 +20,10 @@ GemHadar do
   readme      'README.md'
   title       "#{name.camelize}"
 
+  changelog do
+    filename 'CHANGES.md'
+  end
+
   required_ruby_version '>= 3.1'
   dependency 'tins',           '~> 1', '>= 1.28.0'
   dependency 'term-ansicolor', '~> 1.11'
