@@ -4,6 +4,7 @@
 .bundle
 .rvmrc
 .tool-versions
+.yardoc
 Gemfile.lock
 coverage
 errors.lst
