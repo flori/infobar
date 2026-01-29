@@ -20,6 +20,7 @@ describe Infobar do
     it 'can be used to signal being busy with a block' do
       expect(infobar.display).to receive(:update).at_least(1).and_call_original
       expect(infobar).to receive(:finish).at_least(1).and_call_original
+      expect(infobar).to receive(:newline).at_least(1).and_call_original
       Infobar.busy { sleep 0.2 }
     end
 

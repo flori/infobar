@@ -113,8 +113,9 @@ class Infobar
     t.join
     r
   ensure
-    finish
     ib&.kill
+    finish
+    newline
   end
 
   def reset(display: true)
