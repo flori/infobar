@@ -1,5 +1,13 @@
 # Changes
 
+## 2026-01-29 v0.13.1
+
+- Added `newline` method call in `ensure` block of `Infobar` class to ensure
+  proper display cleanup
+- Updated `infobar_spec.rb` to verify that `newline` is called during busy
+  block execution
+- This ensures consistent infobar behavior and proper terminal output handling
+
 ## 2026-01-29 v0.13.0
 
 - Fixed `.busy` cleanup by ensuring `ib&.kill` is called safely to prevent race
