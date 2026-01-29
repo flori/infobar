@@ -16,18 +16,17 @@ Gem::Specification.new do |s|
   s.homepage = "https://github.com/flori/infobar".freeze
   s.rdoc_options = ["--title".freeze, "Infobar".freeze, "--main".freeze, "README.md".freeze]
   s.required_ruby_version = Gem::Requirement.new(">= 3.1".freeze)
-  s.rubygems_version = "4.0.2".freeze
+  s.rubygems_version = "4.0.3".freeze
   s.summary = "Gem to display information about computations.".freeze
   s.test_files = ["spec/infobar/config_spec.rb".freeze, "spec/infobar/counter_spec.rb".freeze, "spec/infobar/display_spec.rb".freeze, "spec/infobar/duration_spec.rb".freeze, "spec/infobar/fifo_spec.rb".freeze, "spec/infobar/frequency_spec.rb".freeze, "spec/infobar/input_output_spec.rb".freeze, "spec/infobar/message_spec.rb".freeze, "spec/infobar/number_spec.rb".freeze, "spec/infobar/rate_spec.rb".freeze, "spec/infobar/spinner_spec.rb".freeze, "spec/infobar/timer_spec.rb".freeze, "spec/infobar/trend_spec.rb".freeze, "spec/infobar_spec.rb".freeze, "spec/spec_helper.rb".freeze]
 
   s.specification_version = 4
 
-  s.add_development_dependency(%q<gem_hadar>.freeze, [">= 2.16.3".freeze])
-  s.add_development_dependency(%q<rake>.freeze, [">= 0".freeze])
+  s.add_development_dependency(%q<gem_hadar>.freeze, [">= 2.17.0".freeze])
   s.add_development_dependency(%q<simplecov>.freeze, [">= 0".freeze])
   s.add_development_dependency(%q<rspec>.freeze, [">= 0".freeze])
   s.add_development_dependency(%q<debug>.freeze, [">= 0".freeze])
-  s.add_development_dependency(%q<all_images>.freeze, [">= 0".freeze])
+  s.add_development_dependency(%q<all_images>.freeze, [">= 0.12.0".freeze])
   s.add_runtime_dependency(%q<tins>.freeze, ["~> 1".freeze, ">= 1.28.0".freeze])
   s.add_runtime_dependency(%q<term-ansicolor>.freeze, ["~> 1.11".freeze])
   s.add_runtime_dependency(%q<complex_config>.freeze, ["~> 0.22".freeze])

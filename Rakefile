@@ -29,11 +29,10 @@ GemHadar do
   dependency 'term-ansicolor', '~> 1.11'
   dependency 'complex_config', '~> 0.22'
   dependency 'more_math'
-  development_dependency 'rake'
   development_dependency 'simplecov'
   development_dependency 'rspec'
   development_dependency 'debug'
-  development_dependency 'all_images'
+  development_dependency 'all_images', '>= 0.12.0'
 end
 
 task :default => :spec
