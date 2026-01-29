@@ -16,10 +16,16 @@ describe Infobar do
     expect(infobar.counter.total).to eq 10
   end
 
-  it 'can be used to signal being busy with a block' do
-    expect { Infobar.busy }.to raise_error ArgumentError
-    expect(infobar.display).to receive(:update).at_least(1).and_call_original
-    Infobar.busy { sleep 0.2 }
+  describe '.busy' do
+    it 'can be used to signal being busy with a block' do
+      expect(infobar.display).to receive(:update).at_least(1).and_call_original
+      expect(infobar).to receive(:finish).at_least(1).and_call_original
+      Infobar.busy { sleep 0.2 }
+    end
+
+    it 'needs a block for busy display' do
+      expect { Infobar.busy }.to raise_error ArgumentError
+    end
   end
 
   it 'can be called and update instantly' do
@@ -163,8 +169,8 @@ describe Infobar do
   it 'can sent specific message if finished by progress' do
     Infobar(total: 10)
     expect(infobar).not_to be_finished
-    #x expect(infobar).to receive(:finish).with(message: 'hello').
-    #x   and_call_original
+    expect(infobar).to receive(:finish).with(message: 'hello').
+      and_call_original
     infobar.progress(by: 10, finish: 'hello')
     expect(infobar).to be_finished
   end
@@ -173,11 +179,11 @@ describe Infobar do
     Infobar(total: 10)
     expect(infobar).not_to be_finished
     message = Infobar::Message.new(format: 'hello')
-    #x expect(infobar.display).to receive(:update).with(
-    #x   message: message,
-    #x   force: true,
-    #x   counter: anything
-    #x ).and_call_original
+    expect(infobar.display).to receive(:update).with(
+      message: message,
+      force: true,
+      counter: anything
+    ).and_call_original
     infobar.finish message: message
     expect(infobar).to be_finished
   end

@@ -111,8 +111,10 @@ class Infobar
     r = nil
     t = Thread.new { r = yield }
     t.join
-    ib.kill
     r
+  ensure
+    finish
+    ib&.kill
   end
 
   def reset(display: true)
