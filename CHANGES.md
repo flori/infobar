@@ -1,5 +1,33 @@
 # Changes
 
+## 2026-01-29 v0.13.0
+
+- Fixed `.busy` cleanup by ensuring `ib&.kill` is called safely to prevent race
+  conditions
+- Added `finish` call in `ensure` block to properly finalize progress bar
+- Re-enabled and fixed tests for `.busy` method to validate block requirement
+  and display updates
+- Re-enabled tests for `update` method to verify immediate and forced updates
+- Re-enabled tests for `.finish` with message to ensure correct handling of
+  custom messages
+- Updated CI configuration to support Ruby **4.0**, **3.4**, and **3.3** while
+  removing support for **3.0**, **2.7**, and **2.6**
+- Updated `tins` dependency from **~> 1.0** to **~> 1.3**
+- Updated `all_images` development dependency to **>= 0.12.0**
+- Changed homepage URL from `http://flori.github.com/infobar` to
+  `https://github.com/flori/infobar`
+- Updated `rubygems_version` from **3.4.1** to **4.0.3**
+- Added `yaml-dev` and `openssl-dev` to Docker build dependencies
+- Used `bundle install --jobs=$(getconf _NPROCESSORS_ONLN)` for parallel
+  installation
+- Run specs with `bundle exec rake spec`
+- Frozen version string in gemspec
+- Updated gitignore and Rakefile to exclude `.yardoc` directory
+- Updated `gem_hadar` development dependency from version **~> 2.11** to **>=
+  2.16.3**
+- Added changelog file configuration to Rakefile
+- Updated Ruby image version from **4.0-rc-alpine** to **4.0-alpine**
+
 ## 2025-12-21 v0.12.0
 
 - Updated minimum Ruby version requirement to **3.1**
