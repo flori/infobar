@@ -3,10 +3,32 @@ require 'infobar/duration'
 require 'infobar/number'
 require 'infobar/rate'
 
+# Renders a progress bar message from a format string containing
+# registered `%`-directives.
+#
+# Directives like +%c+, +%t+, +%e+, +%s+ are resolved at render
+# time by calling their registered blocks. Custom directives can
+# be added via +Message.register+.
+#
+# @example Basic usage
+#   msg = Infobar::Message.new(format: '%l %c/%t ETA %e %s')
+#   msg.to_str # => "Infobar 12/100 ETA 00:45 |"
 class Infobar::Message
   class << self
     prepend Tins::Delegate
 
+    # Registers a new `%`-directive for use in message format strings.
+    #
+    # @param directive [String] the directive key, e.g. +'%c'+
+    # @param opts [Hash] default options merged into each invocation
+    # @yield [directive, opts] the block that produces the replacement
+    #   string for this directive
+    # @return [Infobar::Message] self for chaining
+    #
+    # @example Register a custom directive
+    #   Message.register('%x', format: '%d') do |d, opts|
+    #     Infobar::Number.new(some_value, **opts)
+    #   end
     def register(directive, **opts, &block)
       directives.key?(directive) and
         warn "Overwriting old directive #{directive}."
@@ -15,10 +37,12 @@ class Infobar::Message
       self
     end
 
+    # @return [Hash] the registry of all registered directives
     def directives
       @directives ||= {}
     end
 
+    # @return [Hash] default options keyed by directive
     def directive_default_options
       @directive_default_options ||= {}
     end
@@ -116,24 +140,45 @@ class Infobar::Message
     ?%
   end
 
+  # Initializes a new Message with the given options.
+  #
+  # @param opts [Hash] message options; must contain a +'format'+
+  #   key with the format string. Additional keys are per-directive
+  #   option overrides (stringified keys).
+  #
+  # @example
+  #   Message.new(format: '%l %c/%t', '%c' => { format: '%03d' })
   def initialize(opts)
     @opts = opts.each_with_object({}) { |(k, v), h| h[k.to_s] = v }
   end
 
+  # @!attribute [r] opts
+  #   @return [Hash] the raw options hash
   attr_reader :opts
 
+  # @return [Hash] the class-level directive registry
   def directives
     self.class.directives
   end
 
+  # @return [Hash] the class-level default options registry
   def directive_default_options
     self.class.directive_default_options
   end
 
+  # Resolves options for a given directive, falling back to the
+  # registered defaults.
+  #
+  # @param directive [String] the directive key
+  # @return [Hash] the effective options for this directive
   def opts_for(directive)
     @opts.fetch(directive, directive_default_options[directive])
   end
 
+  # Renders the format string, replacing all directives with their
+  # resolved values.
+  #
+  # @return [String] the fully rendered message
   def to_str
     keys = directives.keys.sort_by { |k| -k.size }
     format.gsub(/(?<!%)(#{keys * ?|})/) do
@@ -141,12 +186,17 @@ class Infobar::Message
     end
   end
 
+  # @return [String, nil] the raw format string
   def format
     @opts['format']
   end
 
   alias to_s format
 
+  # Returns the options as a symbolized hash with +:format+ as the
+  # format key.
+  #
+  # @return [Hash]
   def to_hash
     result = @opts.dup
     result[:format] = result.delete('format')

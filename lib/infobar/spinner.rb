@@ -1,4 +1,11 @@
+# A terminal spinner that cycles through a set of frame strings.
+#
+# Supports custom frame arrays or any of the built-in +PREDEFINED+
+# animations (e.g. pipe, braille, cylon, pacman).
 class Infobar::Spinner
+  # Built-in frame sets keyed by symbol.
+  #
+  # @api private
   PREDEFINED = {
     pipe:       %w[ | / – \\ ],
     arrow:      %w[ ↑ ↗ → ↘ ↓ ↙ ← ↖ ],
@@ -25,6 +32,13 @@ class Infobar::Spinner
     hourglass:  %w[ ⏳ ⌛ ],
   }
 
+  # Initializes a new Spinner.
+  #
+  # @param frames [Array<String>, Symbol, nil] a custom frame array,
+  #   a +PREDEFINED+ key (e.g. +:pipe+), or +nil+ for the default
+  #   pipe animation
+  # @raise [KeyError] if a +Symbol+ is given that is not in
+  #   +PREDEFINED+
   def initialize(frames = nil)
     @frames =
       case frames
@@ -39,6 +53,11 @@ class Infobar::Spinner
       end
   end
 
+  # Advances the spinner to the frame at the given index.
+  #
+  # @param count [Integer, :random] the frame index (wrapped
+  #   modulo the frame count) or +:random+ for a random frame
+  # @return [Infobar::Spinner] self
   def spin(count)
     @string =
       if count == :random
@@ -49,6 +68,9 @@ class Infobar::Spinner
     self
   end
 
+  # Returns the current frame string.
+  #
+  # @return [String]
   def to_s
     @string
   end
