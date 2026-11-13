@@ -37,7 +37,8 @@ class Infobar::Display
     self.input     = $stdin
     self.frequency = 0.05
     @show          = true
-    @style         = self.class.default_style.dup
+    @style           = self.class.default_style.dup
+    @position_saved  = false
   end
 
   # Sets the update frequency threshold.
@@ -134,7 +135,8 @@ class Infobar::Display
   def update(message: nil, counter: nil, force: false, **options)
     force and @frequency.reset
     @frequency.call do
-      carriage_return
+      output << (@position_saved ? restore_position : save_position)
+      @position_saved = true
       self.style = options
       message = infobar.convert_to_message(message)
       layout_bar(message, counter)
@@ -183,6 +185,7 @@ class Infobar::Display
   # @param clear [Boolean] whether to blank the current line
   # @return [Infobar::Display] self
   def reset(clear: true)
+    @position_saved = false
     clear && self.clear
     self.style = self.class.default_style
     self
@@ -192,9 +195,15 @@ class Infobar::Display
   #
   # @return [Infobar::Display] self
   def clear
-    carriage_return
-    output << ' ' * columns
-    carriage_return
+    if @position_saved
+      output << restore_position
+      output << ' ' * columns
+      output << restore_position
+    else
+      carriage_return
+      output << ' ' * columns
+      carriage_return
+    end
     @frequency.reset
     self
   end
