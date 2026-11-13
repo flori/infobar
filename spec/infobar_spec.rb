@@ -18,13 +18,15 @@ describe Infobar do
 
   describe '.busy' do
     it 'can be used to signal being busy with a block' do
-      expect(infobar.display).to receive(:update).at_least(1).and_call_original
-      expect(infobar).to receive(:finish).at_least(1).and_call_original
-      expect(infobar).to receive(:newline).at_least(1).and_call_original
+      expect(infobar.display).to receive(:update).at_least(1)
+      expect(infobar).to receive(:finish).at_least(1)
+      expect(infobar).to receive(:newline).at_least(1)
       Infobar.busy { sleep 0.2 }
     end
 
     it 'needs a block for busy display' do
+      expect(infobar).to receive(:newline).at_least(1)
+      expect(infobar).to receive(:finish).at_least(1)
       expect { Infobar.busy }.to raise_error ArgumentError
     end
   end

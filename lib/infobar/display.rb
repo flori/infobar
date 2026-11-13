@@ -135,8 +135,7 @@ class Infobar::Display
   def update(message: nil, counter: nil, force: false, **options)
     force and @frequency.reset
     @frequency.call do
-      output << (@position_saved ? restore_position : save_position)
-      @position_saved = true
+      @position_saved ? (output << restore_position) : save_position!
       self.style = options
       message = infobar.convert_to_message(message)
       layout_bar(message, counter)
@@ -204,7 +203,17 @@ class Infobar::Display
       output << ' ' * columns
       carriage_return
     end
+    @position_saved = false
     @frequency.reset
+    self
+  end
+
+  # Saves the current cursor position for subsequent restores.
+  #
+  # @return [Infobar::Display] self
+  def save_position!
+    output << save_position
+    @position_saved = true
     self
   end
 

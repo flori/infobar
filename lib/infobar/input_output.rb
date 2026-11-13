@@ -24,6 +24,7 @@ module Infobar::InputOutput
       display.clear
       if display.output.respond_to?(method)
         display.output.public_send(method, *a, &b)
+        display.save_position!
       end
     end
   end
@@ -33,6 +34,7 @@ module Infobar::InputOutput
       display.clear
       if display.input.respond_to?(method)
         display.input.public_send(method, *a, &b)
+        display.save_position!
       end
     end
   end

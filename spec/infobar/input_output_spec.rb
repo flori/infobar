@@ -21,12 +21,14 @@ describe Infobar::InputOutput do
   it 'can puts after clearing' do
     expect(infobar.display).to receive(:clear)
     expect(infobar.display.output).to receive(:puts)
+    expect(infobar.display).to receive(:save_position!)
     infobar.puts 'hello'
   end
 
   it 'can gets after clearing' do
     expect(infobar.display).to receive(:clear)
     expect(infobar.display.input).to receive(:gets)
+    expect(infobar.display).to receive(:save_position!)
     infobar.gets
   end
 

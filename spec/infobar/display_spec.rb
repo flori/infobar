@@ -32,6 +32,20 @@ describe Infobar::Display do
     expect(output.read).to include "\e[u"
   end
 
+  it 're-saves position after clear and write' do
+    display.update message: 'test', counter: counter
+    output.rewind
+
+    display.clear
+    output << "hello\n"
+    display.save_position!
+
+    display.update message: 'test', counter: counter, force: true
+    content = output.tap(&:rewind).read
+    expect(content).to include "\e[u"
+    expect(content).not_to include "\e[s" + "\e[s"
+  end
+
   it 'reset clears and sets to default style' do
     expect(display).to receive(:clear).and_call_original
     expect(display).to receive(:style=).with(display.class.default_style)
