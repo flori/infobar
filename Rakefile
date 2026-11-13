@@ -24,6 +24,10 @@ GemHadar do
     filename 'CHANGES.md'
   end
 
+  github_workflows(
+    'static.yml' => {}
+  )
+
   required_ruby_version '>= 3.1'
   dependency 'tins',           '~> 1', '>= 1.28.0'
   dependency 'term-ansicolor', '~> 1.11'
