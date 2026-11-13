@@ -1,5 +1,34 @@
 # Changes
 
+## 2026-11-13 v0.13.2
+
+### Improvements
+
+- Added a GitHub Actions workflow (`.github/workflows/static.yml`) to generate
+  YARD documentation and deploy it to GitHub Pages on pushes to `master`.
+- Added a `Documentation` section to `README.md` linking to the hosted API
+  documentation.
+- Added comprehensive YARD documentation to all files under `lib/infobar/` and
+  `lib/infobar.rb`, including class descriptions, method signatures, parameter
+  details, and return types.
+- Replaced the BSD-specific `getconf _NPROCESSORS_ONLN` command with the
+  portable `nproc` command in the CI build script.
+- Added status feedback messages (using emoji) to the CI `after` hook to
+  indicate test success or failure.
+- Added `doc/` to `.gitignore` and the `Rakefile` ignore lists to exclude
+  generated documentation from version control and gem packages.
+
+### Build & CI
+
+- Updated the `rubygems_version` in `infobar.gemspec` to **4.0.24**.
+- Raised the `gem_hadar` development dependency requirement to **>= 2.21.0**.
+- Added `git config --global --add safe.directory /work` to the CI build script
+  to prevent Git ownership safety warnings during test execution.
+- Registered the new `static.yml` workflow in the `Rakefile` via
+  `github_workflows`.
+- Added `.github/workflows/static.yml` to the list of distributed gem files in
+  `infobar.gemspec`.
+
 ## 2026-01-29 v0.13.1
 
 - Added `newline` method call in `ensure` block of `Infobar` class to ensure
