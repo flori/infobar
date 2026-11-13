@@ -151,6 +151,7 @@ class Infobar
     self.input     = input
     self.output    = output
     update and update(message: @message, force: true)
+    install_winch_trap
     self
   end
 
@@ -255,6 +256,7 @@ class Infobar
     counter.finish
     @message = convert_to_message(message)
     display.update(message: @message, force: true, counter: counter)
+    restore_winch_trap
     self
   end
 
@@ -285,6 +287,26 @@ class Infobar
     else
       @message
     end
+  end
+
+  private
+
+  # Installs a `SIGWINCH` handler that clears the display so the
+  # bar re-saves its position after a terminal resize.
+  #
+  # @api private
+  def install_winch_trap
+    @winch_handler ||= Signal.trap('WINCH', 'DEFAULT')
+    Signal.trap('WINCH') { display.clear if display.show? }
+  end
+
+  # Restores the original `SIGWINCH` handler saved by
+  # #install_winch_trap.
+  #
+  # @api private
+  def restore_winch_trap
+    Signal.trap('WINCH', @winch_handler) if @winch_handler
+    @winch_handler = nil
   end
 end
 
