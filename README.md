@@ -4,6 +4,10 @@
 
 Display progress of computations and additional information to the terminal.
 
+## Documentation
+
+Complete API documentation is available at: [GitHub.io](https://flori.github.io/infobar/)
+
 ## Installation
 
     # gem install infobar
