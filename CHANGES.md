@@ -1,5 +1,49 @@
 # Changes
 
+## 2026-11-15 v0.14.0
+
+### Features
+
+- Added `Infobar::Display#save_position!` to explicitly save the cursor
+  position and update the `@position_saved` flag.
+- Exposed a writer for `Infobar::Display#position_saved` to allow forcing a
+  re-save of the cursor position on the next update.
+
+### Fixes
+
+- Replaced carriage return (`\r`) with ANSI save (`\e[s`) and restore (`\e[u`)
+  position sequences in `Infobar::Display#update` and `Infobar::Display#clear`
+  to prevent bar drift when the user presses Enter mid-render.
+- Updated the `SIGWINCH` handler in `Infobar#install_winch_trap` to reset
+  `position_saved` instead of calling `display.clear`, preventing stale cursor
+  restores when the saved row is out of bounds after a terminal resize.
+- Modified `Infobar::Display#update` to restore the cursor position after
+  `layout_bar` to cancel delayed-wrap on the last visible row.
+- Ensured `Infobar::InputOutput` methods (`print`, `printf`, `putc`, `puts`,
+  `gets`, `readline`, `readlines`) call `display.save_position!` after writing
+  to keep the bar aligned with the cursor.
+
+### Improvements
+
+- Added `cscope.out` to the `skip_files` regex in `.utilsrc` to prevent code
+  search tools from indexing cscope database files.
+
+### Build & CI
+
+- Added `cscope.out` to `.gitignore` and the `ignore` list in the `Rakefile`.
+
+### Testing
+
+- Added a test in `spec/infobar/display_spec.rb` covering the save, clear,
+  write, and re-save lifecycle.
+- Updated `spec/infobar/input_output_spec.rb` to expect `save_position!` calls
+  for `puts` and `gets`.
+- Updated `spec/infobar/display_spec.rb` and `spec/infobar/config_spec.rb`
+  expectations to reflect the new ANSI position sequences.
+- Switched `.busy` specs in `spec/infobar_spec.rb` from `and_call_original` to
+  plain stubs for hermetic output and added `finish`/`newline` expectations to
+  the `ArgumentError` test.
+
 ## 2026-11-13 v0.13.2
 
 ### Improvements
