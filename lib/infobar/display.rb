@@ -41,6 +41,11 @@ class Infobar::Display
     @position_saved  = false
   end
 
+  # @!attribute [w] position_saved
+  #   Forces the next +update+ to re-save the cursor
+  #     position.
+  attr_writer :position_saved
+
   # Sets the update frequency threshold.
   #
   # @param duration [Numeric] minimum seconds between updates
@@ -139,6 +144,7 @@ class Infobar::Display
       self.style = options
       message = infobar.convert_to_message(message)
       layout_bar(message, counter)
+      output << restore_position
     end
   end
 

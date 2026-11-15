@@ -297,7 +297,9 @@ class Infobar
   # @api private
   def install_winch_trap
     @winch_handler ||= Signal.trap('WINCH', 'DEFAULT')
-    Signal.trap('WINCH') { display.clear if display.show? }
+    Signal.trap('WINCH') do
+      display.position_saved = false if display.show?
+    end
   end
 
   # Restores the original `SIGWINCH` handler saved by
