@@ -236,6 +236,7 @@ class Infobar::Display
   # @return [Infobar::Display] self
   def newline
     output << $/
+    @position_saved = false
     self
   end
 
