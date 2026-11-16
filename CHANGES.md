@@ -1,5 +1,20 @@
 # Changes
 
+## 2026-11-16 v0.15.0
+
+### Fixes
+
+- `Display#newline` now resets `@position_saved` to `false`, preventing the
+  next `Display#update` from restoring to a stale bar-line position after a
+  newline commit.
+
+### Testing
+
+- Updated spec expectations in `display_spec.rb` to include the trailing
+  `restore_position` escape sequence.
+- Added singleton state isolation (`display.reset`) and the missing
+  `restore_position` expectation in `config_spec.rb`.
+
 ## 2026-11-15 v0.14.0
 
 ### Features
