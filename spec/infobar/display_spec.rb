@@ -16,17 +16,18 @@ describe Infobar::Display do
   before do
     display.output = output
     allow(display).to receive(:columns).and_return 40
+    allow(display).to receive(:cursor_row).and_return 0
   end
 
   it 'can be updated' do
     display.update message: 'test', counter: counter
     expect(output.tap(&:rewind).read).to eq\
-       "\e[s\e[38;5;22m\e[48;5;40m░░░░░░░░░░░░░░░░░░te\e[0m\e[0m\e[38;5;40m\e[48;5;22mst                  \e[0m\e[0m\e[u"
+       "\r\e[s\e[38;5;22m\e[48;5;40m░░░░░░░░░░░░░░░░░░te\e[0m\e[0m\e[38;5;40m\e[48;5;22mst                  \e[0m\e[0m\e[u"
   end
 
   it 'update saves position first' do
     display.update message: 'test', counter: counter
-    expect(output.tap(&:rewind).read).to start_with "\e[s"
+    expect(output.tap(&:rewind).read).to start_with "\r\e[s"
     display.update message: 'test', counter: counter, force: true
     output.rewind
     expect(output.read).to include "\e[u"
@@ -69,7 +70,7 @@ describe Infobar::Display do
     display.style = test_style
     display.update message: 'test', counter: counter
     expect(output.tap(&:rewind).read).to eq\
-      "\e[s\e[38;5;1m\e[48;5;9mXXXXXXXXXXXXXXXXXXte\e[0m\e[0m\e[38;5;0m\e[48;5;8mstOOOOOOOOOOOOOOOOOO\e[0m\e[0m\e[u"
+      "\r\e[s\e[38;5;1m\e[48;5;9mXXXXXXXXXXXXXXXXXXte\e[0m\e[0m\e[38;5;0m\e[48;5;8mstOOOOOOOOOOOOOOOOOO\e[0m\e[0m\e[u"
     expect(display.style).to eq(test_style)
   end
 
@@ -95,7 +96,7 @@ describe Infobar::Display do
     ).at_least(:once)
     display.update message: 'test', counter: counter
     expect(output.tap(&:rewind).read).to eq\
-      "\e[s\e[38;5;1m\e[48;5;9mXXXXXXXXXXXXXXXXX\e[0m\e[0m\e[38;5;0m\e[48;5;10m*test******\e[0m\e[0m\e[38;5;40m\e[48;5;22m            \e[0m\e[0m\e[u"
+      "\r\e[s\e[38;5;1m\e[48;5;9mXXXXXXXXXXXXXXXXX\e[0m\e[0m\e[38;5;0m\e[48;5;10m*test******\e[0m\e[0m\e[38;5;40m\e[48;5;22m            \e[0m\e[0m\e[u"
   end
 
   it 'can output newline' do

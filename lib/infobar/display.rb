@@ -1,6 +1,7 @@
 require 'term/ansicolor'
 require 'stringio'
 require 'infobar/frequency'
+require 'reline'
 
 # Terminal renderer for the progress bar.
 #
@@ -36,9 +37,10 @@ class Infobar::Display
     self.output    = $stdout
     self.input     = $stdin
     self.frequency = 0.05
-    @show          = true
-    @style           = self.class.default_style.dup
-    @position_saved  = false
+    @show           = true
+    @style          = self.class.default_style.dup
+    @position_saved = false
+    @home_row       = nil
   end
 
   # @!attribute [w] position_saved
@@ -142,7 +144,7 @@ class Infobar::Display
     @frequency.call do
       @position_saved ? (output << restore_position) : save_position!
       self.style = options
-      message = infobar.convert_to_message(message)
+      message    = infobar.convert_to_message(message)
       layout_bar(message, counter)
       output << restore_position
     end
@@ -191,6 +193,7 @@ class Infobar::Display
   # @return [Infobar::Display] self
   def reset(clear: true)
     @position_saved = false
+    @home_row       = nil
     clear && self.clear
     self.style = self.class.default_style
     self
@@ -200,7 +203,7 @@ class Infobar::Display
   #
   # @return [Infobar::Display] self
   def clear
-    if @position_saved
+    if @position_saved && @home_row && cursor_row == @home_row
       output << restore_position
       output << ' ' * columns
       output << restore_position
@@ -210,6 +213,7 @@ class Infobar::Display
       carriage_return
     end
     @position_saved = false
+    @home_row       = nil
     @frequency.reset
     self
   end
@@ -218,8 +222,9 @@ class Infobar::Display
   #
   # @return [Infobar::Display] self
   def save_position!
-    output << save_position
+    output << ?\r + save_position
     @position_saved = true
+    @home_row       = cursor_row
     self
   end
 
@@ -237,6 +242,7 @@ class Infobar::Display
   def newline
     output << $/
     @position_saved = false
+    @home_row = nil
     self
   end
 
@@ -255,5 +261,12 @@ class Infobar::Display
   # @return [Integer]
   def columns
     Tins::Terminal.columns
+  end
+
+  # Queries the current cursor row via Reline.
+  #
+  # @return [Integer] the current row position
+  def cursor_row
+    Reline::IOGate.cursor_pos.y
   end
 end

@@ -20,7 +20,8 @@ describe 'Infobar config' do
   it 'configures default infobar' do
     Infobar(total: 23)
     infobar.display.reset
-    expect(infobar.display.output).to receive(:<<).with("\e[s")
+    allow(infobar.display).to receive(:cursor_row).and_return 0
+    expect(infobar.display.output).to receive(:<<).with("\r\e[s")
     expect(infobar.display.output).to receive(:<<).with(
       "\e[38;5;22m\e[48;5;40m\e[0m\e[0m"
     )
