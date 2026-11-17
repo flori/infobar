@@ -1,5 +1,32 @@
 # Changes
 
+## 2026-11-17 v0.16.0
+
+### Features
+
+- Added intelligent bar abandonment detection using `Reline::IOGate.cursor_pos`
+  to track the bar's home row.
+- Implemented logic to detect when the cursor has moved away from the saved bar
+  position, preventing visual artifacts when the bar is cleared or updated
+  after terminal output.
+
+### Improvements
+
+- Modified `save_position!` to emit a carriage return (`\r`) before saving the
+  cursor position, ensuring the bar always anchors at column 1.
+- Updated `clear` to check if the current cursor row matches the saved
+  `@home_row`; if they differ, it falls back to carriage-return-based clearing
+  instead of restoring the saved position.
+- Added `cursor_row` method to query the current cursor row via `Reline`.
+- Reset `@home_row` to `nil` in `reset`, `clear`, and `newline` methods to
+  maintain state consistency.
+
+### Testing
+
+- Updated `spec/infobar/config_spec.rb` and `spec/infobar/display_spec.rb` to
+  mock `cursor_row` and verify the new carriage return behavior in output
+  sequences.
+
 ## 2026-11-16 v0.15.0
 
 ### Fixes
