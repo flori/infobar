@@ -1,5 +1,13 @@
 # Changes
 
+## 2026-11-19 v0.17.0
+
+### Build & CI
+
+- Bumped the minimum required version of the `gem_hadar` development dependency
+  to **2.24.1**.
+- Removed Vim modelines from `Gemfile` and `Rakefile`.
+
 ## 2026-11-17 v0.16.0
 
 ### Features
